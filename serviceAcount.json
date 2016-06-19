@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "picnicbot-cb24a",
+  "private_key_id": "96f6ac8cb85dee83439e858b76e10abe496dd119",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCRHGc0+9JQo/x2\nk5OCgCj06rJwxh8UWVGwLAqtcVFdITr2JhZe8vEceTf6o7DMzq2JS7vGr8Qe0vRx\n9RSNyib90G8ZgmFL0Que3CIugdohM6tyh0kKHJdfFoZRhLp2dTSxGCn3VldhjhSa\nO/MpqkleMESueg112plgHsyj9RV8LW+BINhxF2ChuvyCRabxmRVnFABKPT9cBy/2\nEkWaid4iQ4PkeKcNonRqbaHTA3x+fOGclkFRYUWNMVQ96d3XDw3LNWPvhN4BO9ST\nz2Y9Ur4UZrn74nIs+aNq8MfOfV87NqxeCSEfekraeuqSnKkjzKP0yRVfw4algz5n\nsndIoXRjAgMBAAECggEAQtyYfWROutNkf2puPGI6/OarQ6U2KtUg+5C/dr1Q5R1r\nooFYK3W7PQhpj7Yev6+3bByWL+1K63z+Hwfy6YYswyRoHJPjquBuf0slANLaJBQ/\nuiy1rdAQu0KQrzz+AZjtp2/f3lRNPOkPeyWGXDtXROvuqYoZa6VGqHBokF9b//Pm\nZt2IjvttzEPZnhhmsu4K4AWddPjfBK+OVPn09xlHyiiYZZ1Y9FNL26e0Xy2zdO1X\nwTS6NYYyZ3+NbXyIV/MuVvL+NxUgGtT764+RvjnFNK+MgAjN1tbGqKtfYVnkbeob\nkxKUpMdDqaGGewLWm2gpx9hLnMr/QJDphZe5FbOdQQKBgQDqzvA/4AzqHYKkDW6N\n5UmKb/RPlYyVSC4YxUWfMquJ8B6oJvD+6Zfdpm8jhB4CxSeMgT1pZ1F95JQWJonQ\nsB2Z9k0V8ajPzgkGcykPysLthqFFd6RvVulI8bKSdwGvqrbEEvcqVnTogZbTwI0t\nw4DHxSwiUic4Bwa7JYwAySPEAwKBgQCeNRO3qq+XvjgB5mGkPXMOsv4956Es/k0o\newTXKQnWUwRgL2MYpo+0IfStEEEa6+D82YW6p9+COqrzmQZB5WOx68TVLQJsfSpS\nNqDQ7z0I/Fj5L+ML/JKbxfUFMOHNFdcawDI9qffXcziTm3HVpOzKPRvfhRbvpcRt\nkXlCK5cQIQKBgDnYSwVhW60dIf7qNC8OqkRJekVU0TJBeuGtT459fBbaKaNBHKOf\nxkLbaou0U3RZP3n0qL1br461Deo7Cj539ILmU20xgGXZGw4UtqvmRokfXoFvjPnE\nzmmi6Vv9p1OwWaAKEAvFCr3wlsiJqf35KLOOFmZKGNFLodPe1xOmeYIjAoGAbrxY\nAMbIAT5zlWDcF0mrry46JrpqZkPZXew9hxyCdjHFbk283xQ2oa7ixAAMkftoj5Lx\nt6SpHU5TOg5yAs286lxMean3eFhjtwflqFjML+3xmPmbwlgXhlEZH3kHk7UlyuOc\nRu0hPPy5LRgwpYm69BOx3tIZK8SrqMWaSmaYZgECgYBir+o3Uj8Efs5h6kbmEOwr\nfLdBHKBXhATuQ7taaUO+ZoWdNeO1Zt4aSJ3RBs85JuPDenEB/iKyZdbpvXOWaST8\nd3Kqj0vOExmpoJpTHmIldGUN3v4Xu7cfPFww1HBz8Cfu9a2xiQyhxlgTbyo6yJGI\nz8VUvTG9bvWG4EVjzq/5lA==\n-----END PRIVATE KEY-----\n",
+  "client_email": "picnic@picnicbot-cb24a.iam.gserviceaccount.com",
+  "client_id": "110825554706684383258",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/picnic%40picnicbot-cb24a.iam.gserviceaccount.com"
+}

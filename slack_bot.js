@@ -17,8 +17,19 @@ cleverbot.create(function (err, session) {
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 
+var firebase = require('firebase');
+
+var config = { apiKey: "AIzaSyA-J85azuklel5XmK9yY4QzYnob1ttrLlw",
+               authDomain: "picnicbot-cb24a.firebaseapp.com",
+               databaseURL: "https://picnicbot-cb24a.firebaseio.com",
+               serviceAccount: "serviceAcount.json",
+               storageBucket: "picnicbot-cb24a.appspot.com"};
+firebase.initializeApp(config);
+
+var days = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+
 var controller = Botkit.slackbot({
-    debug: true,
+    debug: true
 });
 
 var bot = controller.spawn({
@@ -150,12 +161,73 @@ controller.on("bot_group_join", function(bot, message){
   bot.reply(message,"Ahora si empieza lo bueno :smirk:");
 });
 
+controller.hears(['actualiza almuerzos'], 'direct_message,direct_mention', function(bot, message){
+  var userID = message.user;
+  var user = "<@"+userID+">";
+  var object = {lunes:"", martes:"", miercoles:"", jueves:"", viernes:""};
+  bot.startConversation(message,function(error, convo){
+    convo.ask("¿Que hay de comer el lunes?", function(response, convo){
+      object.lunes = response.text;
+      convo.next();
+      convo.ask("¿Que hay de comer el martes?", function(response, convo) {
+        object.martes = response.text;
+        convo.next();
+        convo.ask("¿Que hay de comer el miercoles?", function(response, convo) {
+          object.miercoles = response.text;
+          convo.next();
+          convo.ask("¿Que hay de comer el jueves?", function(response, convo) {
+            object.jueves = response.text;
+            convo.next();
+            convo.ask("¿Que hay de comer el viernes?", function(response, convo) {
+              object.viernes = response.text;
+              firebase.database().ref('almuerzos/').set(object);
+              bot.reply(message, "He actualizado la base de datos de almuerzos " + user);
+              convo.stop();
+            });
+          });
+        });
+      });
+    });
+  });
+});
+
 controller.hears(['jale a comer', 'almuerzo', 'comida', 'comen'], 'ambient', function(bot, message){
   var userID = message.user;
   var user = "<@"+userID+">";
   bot.reply(message, "Yo me encargo " + user);
-  bot.say({text: "@channel: hey todos dice " + user + " que tiene hambre a donde vamos",
-           channel:"C11429SQ6"});
+
+  var now = new Date();
+
+  var currentDay = days[now.getDay()];
+  console.log("Dia actual " + currentDay);
+
+  firebase.database().ref('almuerzos/').once('value').then(function(snapshot){
+    var almuerzo = snapshot.val();
+    console.log("Objecto almuerzo %j", almuerzo);
+    bot.say({text: "@channel: hey todos dice " + user + " que tiene hambre a donde vamos",
+             channel:"C11429SQ6"});
+    bot.say({text: "Les recuerdo que hoy tenemos de comer " + almuerzo[currentDay],
+                      channel:"C11429SQ6"});
+  });
+});
+
+controller.hears(['que hay de comer', 'que hay de almuerzo'], 'direct_message,direct_mention,ambient', function(bot, message){
+  firebase.database().ref('almuerzos/').once('value').then(function(snapshot){
+    var now = new Date();
+    var currentDay = days[now.getDay()];
+    var almuerzo = snapshot.val();
+    bot.reply(message, 'Hoy para comer tenemos ' + almuerzo[currentDay]);
+  });
+});
+
+controller.hears(['muestra menu', 'imprime menu', 'menu'], 'direct_message,direct_mention', function(bot,message){
+  firebase.database().ref('almuerzos/').once('value').then(function(snapshot){
+    var almuerzo = snapshot.val();
+    var menu = "El menu de esta semana es: \n";
+    menu = menu + "Lunes: " + almuerzo['lunes'] + "\n" + "Martes: " + almuerzo['martes'] + "\n" + "Miercoles: " + almuerzo['miercoles'] + "\n" +
+           "Jueves: " + almuerzo['jueves'] + "\n" + "Viernes: " + almuerzo['viernes'] + "\n";
+    bot.reply(message, menu);
+  });
 });
 
 controller.hears('','direct_message,direct_mention,mention',function(bot,message) {
