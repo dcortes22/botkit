@@ -62,6 +62,16 @@ controller.hears(['este es un trabajo para la doctora', 'doctora'], 'ambient', f
   bot.reply(message, "http://67.media.tumblr.com/6339f52d38760a700ca9adc48eab43ea/tumblr_o17hspcySq1rzlfxxo1_1280.gif");
 });
 
+controller.hears(['ayuda', 'tutorial', 'como usar'], 'direct_message,direct_mention,mention', function(bot, message){
+  var ayuda = "```Comandos de picnic: \n";
+  ayuda += "insulte: Permite insultar a usuarios :laughing: \n";
+  ayuda += "actualiza almuerzos: Permite actualiza la base de datos de almuerzos \n";
+  ayuda += "almuerzo/comida: Invoca al team para ir a almorzar \n";
+  ayuda += "que hay de comer/que hay de almuerzo: Picnic le dira el menu del día \n";
+  ayuda += "muestra menu/imprime menu/menu: Picnic le dira el menu de la semana \n```";
+  bot.reply(message, ayuda);
+});
+
 controller.hears(['insulte'], 'direct_message,direct_mention,mention', function(bot,message){
   var insults = ["http://i.imgur.com/9IZACjN.jpg",
                   "http://i.imgur.com/ftc2h0p.jpg",
@@ -132,20 +142,12 @@ controller.hears(['insulte'], 'direct_message,direct_mention,mention', function(
 controller.hears(['picnic'], 'ambient', function(bot, message){
   var userID = message.user;
   var user = "<@"+userID+">";
-  var reply = user + " hagame mention, no hable a mis espaldas :rage:";
+  var reply = user + " llamo usted";
   bot.reply(message, reply);
 });
 
 controller.hears(['no entiendo', 'no entendi', 'expliqueme', 'me explica'], 'ambient', function(bot, message){
   bot.reply(message, "https://s-media-cache-ak0.pinimg.com/736x/2e/29/87/2e298711c7fec1d77637a982235c9910.jpg");
-});
-
-controller.hears(['julio', 'orlando', 'orly'], 'direct_message,direct_mention,mention,ambient', function(bot, message){
-  var userID = message.user;
-  var user = "<@"+userID+">";
-  var reply = user + " eso que dijo merece esto";
-  bot.reply(message, reply);
-  bot.reply(message, 'http://gph.is/1HlCG6v');
 });
 
 controller.hears(['me llamo (.*)', 'mi nombre es (.*)', 'soy (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
