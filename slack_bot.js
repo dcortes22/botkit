@@ -64,11 +64,11 @@ controller.hears(['este es un trabajo para la doctora', 'doctora'], 'ambient', f
 
 controller.hears(['ayuda', 'tutorial', 'como usar'], 'direct_message,direct_mention,mention', function(bot, message){
   var ayuda = "```Comandos de picnic: \n";
-  ayuda += "insulte: Permite insultar a usuarios :laughing: \n";
-  ayuda += "actualiza almuerzos: Permite actualiza la base de datos de almuerzos \n";
-  ayuda += "almuerzo/comida: Invoca al team para ir a almorzar \n";
-  ayuda += "que hay de comer/que hay de almuerzo: Picnic le dira el menu del día \n";
-  ayuda += "muestra menu/imprime menu/menu: Picnic le dira el menu de la semana \n```";
+  ayuda += "- insulte: Permite insultar a usuarios \n";
+  ayuda += "- actualiza almuerzos: Permite actualiza la base de datos de almuerzos \n";
+  ayuda += "- almuerzo/comida: Invoca al team para ir a almorzar \n";
+  ayuda += "- que hay de comer/que hay de almuerzo: Picnic le dira el menu del día \n";
+  ayuda += "- muestra menu/imprime menu/menu: Picnic le dira el menu de la semana \n```";
   bot.reply(message, ayuda);
 });
 
