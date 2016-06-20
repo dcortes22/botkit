@@ -36,6 +36,28 @@ var bot = controller.spawn({
     token: process.env.SLACK_TOKEN
 }).startRTM();
 
+var schedule = require('node-schedule');
+
+var rule = new schedule.RecurrenceRule();
+rule.dayOfWeek = [1, 2, 3, 4, 5];
+rule.hour = 12;
+rule.minute = 0;
+
+var j = schedule.scheduleJob(rule, function(){
+
+  var now = new Date();
+
+  var currentDay = days[now.getDay()];
+  console.log("Dia actual " + currentDay);
+
+  firebase.database().ref('almuerzos/').once('value').then(function(snapshot){
+    var almuerzo = snapshot.val();
+    console.log("Objecto almuerzo %j", almuerzo);
+    bot.say({text: "Ya son las 12 medio dia, hora de comer, les recuerdo que hoy tenemos de comer " + almuerzo[currentDay],
+                      channel:"C11429SQ6"});
+  });
+});
+
 controller.hears(['cuenteme algo', 'cuenteme un chiste', 'cuente un chiste', 'estoy aburrido'], 'direct_message,direct_mention,mention', function(bot, message){
   var stories = ['- Mama que haces en frente de la computadora con los hojos cerrados??? \n- Nada hijo es que Windows me dijo que cierre las pestañas',
                  'Un hombre está haciendo un vuelo en un globo aerostático.' +
