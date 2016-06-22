@@ -36,16 +36,11 @@ var bot = controller.spawn({
     token: process.env.SLACK_TOKEN
 }).startRTM();
 
-var time = require("time");
-time.tzset("America/Costa_Rica");
-Date = time.Date;
-
-
 var schedule = require('node-schedule');
 
 var rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [1, 2, 3, 4, 5];
-rule.hour = 12;
+rule.hour = 18;
 rule.minute = 0;
 
 var j = schedule.scheduleJob(rule, function(){
