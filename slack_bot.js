@@ -168,6 +168,7 @@ controller.hears(['picnic'], 'ambient', function(bot, message){
   bot.reply(message, reply);
 });
 
+//Prueba de realese
 controller.hears(['creador'], 'ambient', function(bot, message){
   bot.reply(message, 'Mi creador es David');
 });
