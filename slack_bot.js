@@ -168,6 +168,11 @@ controller.hears(['picnic'], 'ambient', function(bot, message){
   bot.reply(message, reply);
 });
 
+//Prueba de realese
+controller.hears(['creador'], 'ambient', function(bot, message){
+  bot.reply(message, 'Mi creador es David');
+});
+
 controller.hears(['no entiendo', 'no entendi', 'expliqueme', 'me explica'], 'ambient', function(bot, message){
   bot.reply(message, "https://s-media-cache-ak0.pinimg.com/736x/2e/29/87/2e298711c7fec1d77637a982235c9910.jpg");
 });
