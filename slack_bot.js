@@ -8,9 +8,9 @@ cleverbot = new cleverbot('i8TjAndLnTqKNxFv', 'nfwwaciaKYccoLj5KLuOGhLoddV8O6zo'
 cleverbot.setNick("Bob");
 cleverbot.create(function (err, session) {
     if (err) {
-        console.log('cleverbot create fail.');
+        console.log('cleverbot fallo a la hora iniciar.');
     } else {
-        console.log('cleverbot create success.');
+        console.log('cleverbot fue creado con exito.');
     }
 });
 
