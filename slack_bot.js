@@ -189,6 +189,22 @@ controller.on("bot_group_join", function(bot, message){
   bot.reply(message,"Ahora si empieza lo bueno :smirk:");
 });
 
+controller.hears(['agregar cumple'], 'direct_message,direct_mention', function(bot, message){
+  bot.startConversation(message, function(error, convo){
+    var birthday = {};
+    convo.ask("¿Cuál es el nombre de usuario que desea registrar?", function(response, convo){
+      birthday.user = response.text;
+      convo.next();
+      convo.ask("¿Cuál es la fecha de cumple años en formato Mes/Dia/Año?", function(response, convo){
+        birthday.day = response.text;
+        firebase.database().ref('cumples/').set(birthday);
+        bot.reply(message, "He actualizado la base de datos de cumpleaños " + user);
+        convo.stop();
+      });
+    });
+  });
+});
+
 controller.hears(['actualiza almuerzos'], 'direct_message,direct_mention', function(bot, message){
   var userID = message.user;
   var user = "<@"+userID+">";
