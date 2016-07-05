@@ -191,17 +191,43 @@ controller.on("bot_group_join", function(bot, message){
 
 controller.hears(['agregar cumple'], 'direct_message,direct_mention', function(bot, message){
   bot.startConversation(message, function(error, convo){
-    var birthday = {};
+    var birthdays = firebase.database().ref('cumples');
+    var user = birthdays.push();
+    var name = "";
+    var day;
+    var month;
+    var year;
     convo.ask("¿Cuál es el nombre de usuario que desea registrar?", function(response, convo){
-      birthday.user = response.text;
+      name = response.text;
       convo.next();
-      convo.ask("¿Cuál es la fecha de cumple años en formato Mes/Dia/Año?", function(response, convo){
-        birthday.day = response.text;
-        firebase.database().ref('cumples/').set(birthday);
-        bot.reply(message, "He actualizado la base de datos de cumpleaños " + user);
-        convo.stop();
+      convo.ask("¿Cuál es el día de cumpleaños?", function(response, convo){
+        day = response.text;
+        convo.next();
+        convo.ask("¿Cuál es el numero de mes de cumpleaños?", function(response, convo){
+          month = response.text;
+          convo.next();
+          convo.ask("¿En qué año nació?", function(response, convo){
+            year = response.text;
+            user.set({user:name,day:day,month:month,year:year});
+            bot.reply(message, "He actualizado la base de datos de cumpleaños");
+            convo.stop();
+          });
+        });
       });
     });
+  });
+});
+
+controller.hears(['proximo cumple', 'proximo cumpleaños', 'cumple mas cercano'], 'direct_message,direct_mention', function(bot, message){
+  bot.reply(message, "Dejame revisar");
+  var birthdays = [];
+  firebase.database().ref('cumples/').once('value').then(function(snapshot){
+    birthdays = snapshot.val();
+    var array = Object.keys(birthdays).map(function(x) { return birthdays[x]; });
+    var closests = findClosestBirthday(array, new Date());
+    console.log(closests);
+    var user = "<@"+closests.datesBefore[0].object.user+">";
+    bot.reply(message, "El proximo cumple es el de " + user + ", el mismo es el dia " + closests.datesBefore[0].object.day + "/" + closests.datesBefore[0].object.month);
   });
 });
 
@@ -284,6 +310,43 @@ controller.hears('','direct_message,direct_mention,mention',function(bot,message
         }
     });
 })
+
+function findClosestBirthday(dates, currentDate) {
+    var before = [];
+    var after = [];
+    var max = dates.length;
+    for(var i = 0; i < max; i++) {
+        var birthday = dates[i];
+        var arrDate = new Date(currentDate.getFullYear(), birthday.month - 1, birthday.day);
+        // 3600 * 24 * 1000 = calculating milliseconds to days, for clarity.
+        var diff = (arrDate - currentDate) / (3600 * 24 * 1000);
+        if(diff > 0) {
+            before.push({diff: diff, index: i, object:birthday});
+        } else {
+            after.push({diff: diff, index: i, object:birthday});
+        }
+    }
+    before.sort(function(a, b) {
+        if(a.diff < b.diff) {
+            return -1;
+        }
+        if(a.diff > b.diff) {
+            return 1;
+        }
+        return 0;
+    });
+
+    after.sort(function(a, b) {
+        if(a.diff > b.diff) {
+            return -1;
+        }
+        if(a.diff < b.diff) {
+            return 1;
+        }
+        return 0;
+    });
+    return {datesBefore: before, datesAfter: after};
+}
 
 
 function formatUptime(uptime) {
